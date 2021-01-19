@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const exphbs = require('express-handlebars');
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -8,7 +10,7 @@ const passport = require('passport');
 
 // Load User Model
 require('./models/User');
-
+require('./models/Story');
 // Passport Config
 require('./config/passport')(passport);
 
@@ -19,6 +21,16 @@ const stories = require('./routes/stories');
 
 // Load Keys
 const keys = require('./config/keys');
+
+// Handlebars Helpers
+const {
+  truncate,
+  stripTags,
+  formatDate,
+  select,
+  editIcon
+} = require('./helpers/hbs');
+
 
 // Map global promises
 mongoose.Promise = global.Promise;
@@ -32,8 +44,22 @@ mongoose.connect(keys.mongoURI, {
 
 const app = express();
 
+// Body Parser Middleware
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+// MEthod Override Middelware
+app.use(methodOverride('_method'));
+
 // Handlebars Middleware
 app.engine('handlebars', exphbs({
+  helpers: {
+    truncate: truncate,
+    stripTags: stripTags,
+    formatDate:formatDate,
+    select:select,
+    editIcon: editIcon
+  },
   defaultLayout:'main'
 }));
 app.set('view engine', 'handlebars');
