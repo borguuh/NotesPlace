@@ -1,1 +1,7 @@
-This project is still under development. But you can follow the development process by visiting https://notesplace.heroku.app
+##Nothing
+mongoose.connect(keys.mongoURI, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true
+})
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));

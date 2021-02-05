@@ -8,6 +8,9 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
 
+const Handlebars = require('handlebars');
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
+ 
 // Load User Model
 require('./models/User');
 require('./models/Story');
@@ -58,8 +61,9 @@ app.engine('handlebars', exphbs({
     stripTags: stripTags,
     formatDate:formatDate,
     select:select,
-    editIcon: editIcon
+    editIcon: editIcon,
   },
+  handlebars: allowInsecurePrototypeAccess(Handlebars),
   defaultLayout:'main'
 }));
 app.set('view engine', 'handlebars');
