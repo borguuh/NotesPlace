@@ -1,12 +1,12 @@
 {
-  "name": "storybooks",
+  "name": "Notesplace",
   "version": "1.0.0",
   "description": "App to share public or write private stories",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
   },
-  "author": "Brad Traversy",
+  "author": "Azeez Abdulrahman",
   "license": "MIT",
   "dependencies": {
     "express": "^4.15.4",
